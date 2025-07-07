@@ -1,3 +1,4 @@
+import process from "node:process";
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ 
     status: 'healthy',
     service: 'REST API',
@@ -17,7 +18,7 @@ app.get('/health', (req, res) => {
 });
 
 // Sample endpoints
-app.get('/api/v1/items', (req, res) => {
+app.get('/api/v1/items', (_req, res) => {
   res.json({
     items: [
       { id: 1, name: 'Item 1', description: 'First item' },
@@ -61,7 +62,7 @@ app.delete('/api/v1/items/:id', (req, res) => {
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Internal server error' });
 });

@@ -5,6 +5,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import os from 'os';
+import process from "node:process";
 
 export interface Config {
   orchestrator: {

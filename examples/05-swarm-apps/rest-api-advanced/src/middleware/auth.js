@@ -1,3 +1,4 @@
+import process from "node:process";
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Token = require('../models/token.model');

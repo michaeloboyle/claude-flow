@@ -1,3 +1,4 @@
+import process from "node:process";
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();

@@ -12,6 +12,7 @@ import {
   formatDuration
 } from './prompt-utils';
 import { logger } from '../logger';
+import process from "node:process";
 
 const program = new Command();
 

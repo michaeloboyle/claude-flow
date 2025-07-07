@@ -11,6 +11,7 @@ import { NotesManager, Note } from './notes.js';
 import { join } from 'path';
 import { mkdtempSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
+import process from "node:process";
 
 describe('Notes CLI Test Suite', () => {
     let manager;

@@ -8,6 +8,7 @@ import { ILogger } from '../core/logger.js';
 import { MCPConfig, MCPSession, MCPMetrics, HealthStatus } from '../utils/types.js';
 import { MCPError } from '../utils/errors.js';
 import { IMCPServer } from './server.js';
+import process from "node:process";
 
 export enum LifecycleState {
   STOPPED = 'stopped',

@@ -9,6 +9,7 @@ import { createWriteStream, createReadStream, Readable } from 'node:stream';
 import { join, dirname } from 'node:path';
 import PQueue from 'p-queue';
 import { Logger } from '../../core/logger.js';
+import { Buffer } from "node:buffer";
 
 export interface FileOperationResult {
   path: string;

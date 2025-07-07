@@ -132,6 +132,7 @@ export class TestCleanup {
         })
       ]);
     } catch (_error) {
+      // eslint-disable-next-line no-console
       console.warn(`Warning: ${this.promises.size} promises did not settle within ${timeoutMs}ms`);
     }
   }
@@ -231,6 +232,7 @@ export class TestCleanup {
 
     // Report any errors encountered during cleanup
     if (errors.length > 0) {
+      // eslint-disable-next-line no-console
       console.warn(`TestCleanup encountered ${errors.length} errors during cleanup:`, errors);
     }
   }

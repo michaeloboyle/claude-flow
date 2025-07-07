@@ -4,6 +4,7 @@
  */
 
 import { TestCleanup } from './test-cleanup.js';
+import process from "node:process";
 
 /**
  * Performance metrics for test operations
@@ -74,8 +75,8 @@ export class PerformanceTestUtils {
     const { trackMemory = true } = options;
     
     // Force garbage collection before measurement
-    if (global.gc) {
-      global.gc();
+    if (globalThis.gc) {
+      globalThis.gc();
     }
     
     const startTime = performance.now();
@@ -123,14 +124,15 @@ export class PerformanceTestUtils {
       trackMemory = false
     } = options;
 
-    // Warmup phase
+    // Warmup phase - sequential execution needed for accurate warmup
     for (let i = 0; i < warmupIterations; i++) {
+      // deno-lint-ignore no-await-in-loop
       await operation();
     }
 
     // Force garbage collection after warmup
-    if (global.gc) {
-      global.gc();
+    if (globalThis.gc) {
+      globalThis.gc();
     }
 
     const durations: number[] = [];
@@ -154,10 +156,11 @@ export class PerformanceTestUtils {
       }
     };
 
-    // Run in batches based on concurrency
+    // Run in batches based on concurrency - sequential batches needed for proper load testing
     const batches = Math.ceil(iterations / concurrency);
     for (let i = 0; i < batches; i++) {
       const batchSize = Math.min(concurrency, iterations - i * concurrency);
+      // deno-lint-ignore no-await-in-loop
       await runBatch(batchSize);
     }
 
@@ -264,7 +267,8 @@ export class PerformanceTestUtils {
         
         activeRequests.add(requestPromise);
         
-        // Wait for interval using cleanup-tracked timeout
+        // Wait for interval using cleanup-tracked timeout - sequential timing needed for load testing
+        // deno-lint-ignore no-await-in-loop
         await new Promise<void>((resolve) => {
           this.cleanup.setTimeout(() => resolve(), targetInterval);
         });
@@ -315,8 +319,8 @@ export class PerformanceTestUtils {
     const { duration = 10000, maxMemoryMB = 100, iterations = 1000 } = options;
     
     // Force garbage collection before test
-    if (global.gc) {
-      global.gc();
+    if (globalThis.gc) {
+      globalThis.gc();
     }
     
     const startMemory = process.memoryUsage().heapUsed;
@@ -327,6 +331,7 @@ export class PerformanceTestUtils {
     
     try {
       while (Date.now() - startTime < duration && completedIterations < iterations) {
+        // deno-lint-ignore no-await-in-loop
         result = await operation();
         completedIterations++;
         
@@ -340,8 +345,8 @@ export class PerformanceTestUtils {
       }
       
       // Force garbage collection after test
-      if (global.gc) {
-        global.gc();
+      if (globalThis.gc) {
+        globalThis.gc();
       }
       
       const endMemory = process.memoryUsage().heapUsed;

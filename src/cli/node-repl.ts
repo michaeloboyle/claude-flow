@@ -10,6 +10,7 @@ import { spawn } from 'child_process';
 import colors from 'chalk';
 import Table from 'cli-table3';
 import inquirer from 'inquirer';
+import process from "node:process";
 
 interface REPLCommand {
   name: string;

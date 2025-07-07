@@ -9,6 +9,7 @@ import {
   formatFileSize
 } from './prompt-utils';
 import { logger } from '../logger';
+import process from "node:process";
 
 export interface PromptManagerOptions {
   configPath?: string;

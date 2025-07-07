@@ -3,6 +3,7 @@
  * Swarm command wrapper for simple CLI
  */
 
+import process from "node:process";
 function showSwarmHelp() {
   console.log(`
 🐝 Claude Flow Advanced Swarm System

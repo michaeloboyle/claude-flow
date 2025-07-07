@@ -191,24 +191,24 @@ export class AgentManager extends EventEmitter {
   }
 
   private setupEventHandlers(): void {
-    this.eventBus.on('agent:heartbeat', (data) => {
+    this.eventBus.on('agent:heartbeat', (data: { agentId: string; timestamp: Date; metrics?: AgentMetrics }) => {
       this.handleHeartbeat(data);
     });
 
-    this.eventBus.on('agent:error', (data) => {
+    this.eventBus.on('agent:error', (data: { agentId: string; error: AgentError }) => {
       this.handleAgentError(data);
     });
 
-    this.eventBus.on('task:assigned', (data) => {
+    this.eventBus.on('task:assigned', (data: { agentId: string }) => {
       this.updateAgentWorkload(data.agentId, 1);
     });
 
-    this.eventBus.on('task:completed', (data) => {
+    this.eventBus.on('task:completed', (data: { agentId: string; metrics: AgentMetrics }) => {
       this.updateAgentWorkload(data.agentId, -1);
       this.updateAgentMetrics(data.agentId, data.metrics);
     });
 
-    this.eventBus.on('resource:usage', (data) => {
+    this.eventBus.on('resource:usage', (data: { agentId: string; usage: { cpu: number; memory: number; disk: number } }) => {
       this.updateResourceUsage(data.agentId, data.usage);
     });
   }

@@ -1,3 +1,5 @@
+import process from "node:process";
+import { Buffer } from "node:buffer";
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const authService = require('../../src/services/auth.service');

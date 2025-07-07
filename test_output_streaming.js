@@ -6,6 +6,7 @@
  */
 
 import WebSocket from 'ws';
+import process from "node:process";
 
 async function testOutputStreaming() {
     console.log('🎨 Testing Output Streaming and ANSI Color Conversion...\n');

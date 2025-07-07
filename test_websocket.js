@@ -6,6 +6,7 @@
  */
 
 import WebSocket from 'ws';
+import process from "node:process";
 
 async function testWebSocket() {
     // eslint-disable-next-line no-console

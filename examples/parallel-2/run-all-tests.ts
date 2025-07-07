@@ -14,6 +14,7 @@ import { TesterAgent } from './tester-agent-test';
 import { DocumenterAgent } from './documenter-agent-test';
 import { MonitorAgent } from './monitor-agent-test';
 import { SpecialistAgent } from './specialist-agent-test';
+import process from "node:process";
 
 class AgentTestRunner {
   async runSequentialTests() {

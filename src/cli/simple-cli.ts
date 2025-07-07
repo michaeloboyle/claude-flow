@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { configManager, ConfigError } from '../config/config-manager.js';
 import chalk from 'chalk';
+import process from "node:process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -4,6 +4,7 @@
  * Script to ensure npm package has correct version
  */
 
+import process from "node:process";
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
@@ -40,7 +41,7 @@ console.log('\n3️⃣ Clearing npm cache...');
 try {
   execSync('npm cache clean --force', { stdio: 'inherit' });
   console.log('   ✅ npm cache cleared');
-} catch (e) {
+} catch (_e) {
   console.log('   ⚠️  Failed to clear npm cache');
 }
 
@@ -53,7 +54,7 @@ try {
     execSync(`rm -rf ${npxCache}`, { stdio: 'inherit' });
     console.log('   ✅ npx cache cleared');
   }
-} catch (e) {
+} catch (_e) {
   console.log('   ⚠️  Failed to clear npx cache');
 }
 
@@ -62,7 +63,7 @@ console.log('\n5️⃣ Building fresh dist files...');
 console.log('   Note: There may be TypeScript errors, but the version should be updated');
 try {
   execSync('npm run build:ts', { stdio: 'inherit' });
-} catch (e) {
+} catch (_e) {
   console.log('   ⚠️  Build had errors, but continuing...');
 }
 

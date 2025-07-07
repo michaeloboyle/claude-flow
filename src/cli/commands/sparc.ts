@@ -1,6 +1,7 @@
 import { success, error, warning, info } from "../cli-core.js";
 import type { CommandContext } from "../cli-core.js";
 import colors from "chalk";
+import process from "node:process";
 const { blue, yellow, green, magenta, cyan } = colors;
 
 interface SparcMode {
@@ -29,8 +30,8 @@ async function loadSparcConfig(): Promise<SparcConfig> {
     const content = await readFile(configPath, "utf-8");
     sparcConfig = JSON.parse(content);
     return sparcConfig!;
-  } catch (error) {
-    throw new Error(`Failed to load SPARC configuration: ${error.message}`);
+  } catch (err) {
+    throw new Error(`Failed to load SPARC configuration: ${(err as Error).message}`);
   }
 }
 
@@ -318,8 +319,8 @@ async function runSparcWorkflow(ctx: CommandContext): Promise<void> {
 
       if (workflow.sequential !== false && i < workflow.steps.length - 1) {
         console.log("Step completed. Press Enter to continue, or Ctrl+C to stop...");
-        await new Promise<void>((resolve) => {
-          const readline = require("readline");
+        await new Promise<void>(async (resolve) => {
+          const readline = await import("readline");
           const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
@@ -339,7 +340,7 @@ async function runSparcWorkflow(ctx: CommandContext): Promise<void> {
   }
 }
 
-function buildSparcPrompt(mode: SparcMode, taskDescription: string, flags: any): string {
+function buildSparcPrompt(mode: SparcMode, taskDescription: string, flags: Record<string, unknown>): string {
   const memoryNamespace = flags.namespace || mode.slug || "default";
   
   return `# SPARC Development Mode: ${mode.name}
@@ -422,7 +423,7 @@ function buildToolsFromGroups(groups: string[]): string {
   for (const group of groups) {
     if (Array.isArray(group)) {
       // Handle nested group definitions
-      const groupName = group[0];
+      const groupName = (group as string[])[0];
       if (toolMappings[groupName]) {
         toolMappings[groupName].forEach(tool => tools.add(tool));
       }
@@ -438,7 +439,7 @@ async function executeClaudeWithSparc(
   enhancedTask: string, 
   tools: string, 
   instanceId: string, 
-  flags: any
+  flags: Record<string, unknown>
 ): Promise<void> {
   const claudeArgs = [enhancedTask];
   claudeArgs.push("--allowedTools", tools);
@@ -468,7 +469,7 @@ async function executeClaudeWithSparc(
       stdio: "inherit",
     });
 
-    const status = await new Promise((resolve) => {
+    const status = await new Promise<{ success: boolean; code: number | null }>((resolve) => {
       child.on("close", (code) => {
         resolve({ success: code === 0, code });
       });

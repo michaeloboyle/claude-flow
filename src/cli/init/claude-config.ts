@@ -1,5 +1,6 @@
 // init/claude-config.ts - Claude configuration creation
 import type { InitOptions } from './index.js';
+import process from "node:process";
 
 export async function createClaudeConfig(options: InitOptions): Promise<void> {
   const fs = await import('fs/promises');

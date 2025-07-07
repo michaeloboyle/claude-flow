@@ -7,6 +7,7 @@ import { ITerminalAdapter, Terminal } from './base.js';
 import { ILogger } from '../../core/logger.js';
 import { TerminalError } from '../../utils/errors.js';
 import { generateId, delay, timeout, createDeferred } from '../../utils/helpers.js';
+import process from "node:process";
 
 /**
  * VSCode API interface (injected via extension)

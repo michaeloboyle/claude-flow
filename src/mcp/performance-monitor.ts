@@ -6,6 +6,7 @@ import { EventEmitter } from 'node:events';
 import { performance } from 'node:perf_hooks';
 import { ILogger } from '../core/logger.js';
 import { MCPSession, MCPRequest, MCPResponse, MCPMetrics } from '../utils/types.js';
+import process from "node:process";
 
 export interface PerformanceMetrics {
   requestCount: number;

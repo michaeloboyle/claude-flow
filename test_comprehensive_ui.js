@@ -6,6 +6,7 @@
  */
 
 import WebSocket from 'ws';
+import process from "node:process";
 
 class UITestSuite {
     constructor() {

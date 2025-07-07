@@ -5,6 +5,7 @@
 
 import readline from 'readline';
 import chalk from 'chalk';
+import process from "node:process";
 
 export interface UIProcess {
   id: string;

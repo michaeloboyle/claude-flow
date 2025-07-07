@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { logger } from '../logger';
+import process from "node:process";
 
 export interface PromptConfig {
   sourceDirectories: string[];

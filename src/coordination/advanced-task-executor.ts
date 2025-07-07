@@ -9,6 +9,7 @@ import { ILogger } from '../core/logger.js';
 import { IEventBus } from '../core/event-bus.js';
 import { CircuitBreaker, CircuitBreakerManager } from './circuit-breaker.js';
 import { generateId } from '../utils/helpers.js';
+import process from "node:process";
 
 export interface TaskExecutorConfig {
   maxConcurrentTasks: number;

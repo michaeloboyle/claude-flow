@@ -1,3 +1,4 @@
+import process from "node:process";
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoutes);
 
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

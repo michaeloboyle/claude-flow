@@ -11,6 +11,7 @@ import { MigrationStrategy } from './types';
 import { logger } from './logger';
 import * as chalk from 'chalk';
 import * as path from 'path';
+import process from "node:process";
 
 const program = new Command();
 

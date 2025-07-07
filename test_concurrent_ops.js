@@ -7,6 +7,7 @@
 
 import WebSocket from 'ws';
 import { spawn } from 'child_process';
+import process from "node:process";
 
 async function testConcurrentOperations() {
     console.log('⚡ Testing Concurrent CLI and Web UI Operations...\n');

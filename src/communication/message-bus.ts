@@ -12,6 +12,7 @@ import {
   CommunicationStrategy 
 } from '../swarm/types.js';
 import { generateId } from '../utils/helpers.js';
+import { Buffer } from "node:buffer";
 
 export interface MessageBusConfig {
   strategy: CommunicationStrategy;

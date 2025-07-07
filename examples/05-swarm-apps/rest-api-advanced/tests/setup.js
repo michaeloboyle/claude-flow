@@ -39,7 +39,7 @@ afterAll(async () => {
 jest.setTimeout(30000);
 
 // Mock console methods in test environment
-global.console = {
+globalThis.console = {
   ...console,
   error: jest.fn(),
   warn: jest.fn(),

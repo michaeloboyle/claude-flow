@@ -11,6 +11,7 @@ import { VSCodeAdapter } from './adapters/vscode.js';
 import { NativeAdapter } from './adapters/native.js';
 import { TerminalPool } from './pool.js';
 import { TerminalSession } from './session.js';
+import process from "node:process";
 
 export interface ITerminalManager {
   initialize(): Promise<void>;

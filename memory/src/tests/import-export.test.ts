@@ -5,6 +5,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ImportExportManager } from '../io/import-export';
 import { MemoryItem } from '../types';
+import { Buffer } from "node:buffer";
 
 describe('ImportExportManager', () => {
   let importExport: ImportExportManager;

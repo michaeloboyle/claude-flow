@@ -5,6 +5,7 @@
 import { ILogger } from '../core/logger.js';
 import { IEventBus } from '../core/event-bus.js';
 import { SystemEvents } from '../utils/types.js';
+import process from "node:process";
 
 export interface CoordinationMetrics {
   timestamp: Date;

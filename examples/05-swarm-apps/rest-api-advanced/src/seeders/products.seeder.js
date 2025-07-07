@@ -1,3 +1,4 @@
+import process from "node:process";
 const mongoose = require('mongoose');
 const Product = require('../models/product.model');
 const User = require('../models/User');

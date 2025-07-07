@@ -5,6 +5,7 @@
 
 import Database from 'better-sqlite3';
 import { MemoryItem, MemoryQuery, MemoryBackend, BackendStats } from '../types';
+import { Buffer } from "node:buffer";
 
 export interface SqliteBackendConfig {
   path: string;

@@ -10,6 +10,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ILogger } from '../core/logger.js';
 import { generateId } from '../utils/helpers.js';
+import process from "node:process";
 
 // === INTERFACES ===
 

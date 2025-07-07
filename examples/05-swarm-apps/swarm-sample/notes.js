@@ -17,6 +17,7 @@ import { join } from 'path';
 import { homedir } from 'os';
 import { program } from 'commander';
 import chalk from 'chalk';
+import process from "node:process";
 
 // Notes storage location
 const NOTES_DIR = join(homedir(), '.notes-cli');

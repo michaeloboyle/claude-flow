@@ -6,6 +6,7 @@
  */
 
 import WebSocket from 'ws';
+import process from "node:process";
 
 async function testErrorHandling() {
     console.log('🛠️  Testing Error Handling and Recovery Mechanisms...\n');

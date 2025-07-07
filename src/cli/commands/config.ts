@@ -9,6 +9,7 @@ import { Confirm, Input, Select } from '@cliffy/prompt';
 import { configManager } from '../../core/config.js';
 import { deepMerge } from '../../utils/helpers.js';
 import { join } from 'path';
+import process from "node:process";
 
 export const configCommand = new Command()
   .description('Manage Claude-Flow configuration')

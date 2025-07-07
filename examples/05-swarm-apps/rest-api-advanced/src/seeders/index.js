@@ -1,3 +1,4 @@
+import process from "node:process";
 const mongoose = require('mongoose');
 const seedProducts = require('./products.seeder');
 const seedOrders = require('./orders.seeder');

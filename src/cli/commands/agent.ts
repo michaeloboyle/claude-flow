@@ -16,6 +16,7 @@ import { DistributedMemorySystem } from '../../memory/distributed-memory.js';
 import { formatDuration, formatBytes, formatPercentage } from '../../utils/formatters.js';
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import process from "node:process";
 
 // Global agent manager instance
 let agentManager: AgentManager | null = null;

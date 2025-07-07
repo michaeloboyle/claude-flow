@@ -105,16 +105,16 @@ describe("TestCleanup - Issue #120 Implementation", () => {
     it("should register and cleanup event listeners", async () => {
       // Create a mock event target for testing
       const mockTarget = {
-        listeners: new Map(),
+        listeners: new Map<string, EventListener[]>(),
         addEventListener(event: string, listener: EventListener) {
           if (!this.listeners.has(event)) {
             this.listeners.set(event, []);
           }
-          this.listeners.get(event).push(listener);
+          this.listeners.get(event)!.push(listener);
         },
         removeEventListener(event: string, listener: EventListener) {
           if (this.listeners.has(event)) {
-            const listeners = this.listeners.get(event);
+            const listeners = this.listeners.get(event)!;
             const index = listeners.indexOf(listener);
             if (index > -1) {
               listeners.splice(index, 1);
@@ -123,18 +123,18 @@ describe("TestCleanup - Issue #120 Implementation", () => {
         }
       } as unknown as EventTarget;
       
-      const listener = () => {};
+      const listener = () => { /* no-op */ };
       
       cleanup.registerEventListener(mockTarget, 'test', listener);
       
       // Verify listener was added
-      assertEquals((mockTarget as any).listeners.get('test').length, 1);
+      assertEquals((mockTarget as Record<string, unknown>).listeners.get('test').length, 1);
       assertEquals(cleanup.getStats().eventListeners, 1);
       
       await cleanup.cleanup();
       
       // Verify listener was removed
-      assertEquals((mockTarget as any).listeners.get('test').length, 0);
+      assertEquals((mockTarget as Record<string, unknown>).listeners.get('test').length, 0);
       assertEquals(cleanup.getStats().eventListeners, 0);
     });
   });

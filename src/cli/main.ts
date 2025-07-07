@@ -7,6 +7,7 @@ import { CLI, VERSION } from "./cli-core.js";
 import { setupCommands } from "./commands/index.js";
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
+import process from "node:process";
 
 async function main() {
   const cli = new CLI("claude-flow", "Advanced AI Agent Orchestration System");

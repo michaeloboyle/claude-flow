@@ -37,6 +37,7 @@ import {
 } from './batch-init.js';
 import { ValidationSystem, runFullValidation } from './validation/index.js';
 import { RollbackSystem, createAtomicOperation } from './rollback/index.js';
+import process from "node:process";
 
 export async function initCommand(subArgs, flags) {
   // Show help if requested

@@ -7,6 +7,7 @@ import { TaskDefinition, AgentState, TaskResult } from './types.js';
 import { Logger } from '../core/logger.js';
 import * as path from 'node:path';
 import { spawn } from 'node:child_process';
+import process from "node:process";
 
 export interface ClaudeFlowExecutorConfig {
   logger?: Logger;

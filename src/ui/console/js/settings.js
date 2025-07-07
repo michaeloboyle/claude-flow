@@ -497,8 +497,8 @@ export class SettingsManager {
    */
   setupEventListeners() {
     // Listen for theme changes from system
-    if (window.matchMedia) {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    if (globalThis.matchMedia) {
+      const mediaQuery = globalThis.matchMedia('(prefers-color-scheme: dark)');
       mediaQuery.addEventListener('change', (e) => {
         if (this.get('theme') === 'auto') {
           this.applyTheme(e.matches ? 'dark' : 'light');
@@ -507,7 +507,7 @@ export class SettingsManager {
     }
     
     // Listen for font size changes from browser zoom
-    window.addEventListener('resize', () => {
+    globalThis.addEventListener('resize', () => {
       this.applyFontSize(this.get('fontSize'));
     });
   }

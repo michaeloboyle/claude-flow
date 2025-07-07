@@ -5,6 +5,7 @@
  * This script tests various incremental update scenarios across the system
  */
 
+import process from "node:process";
 const { SwarmMemory } = require('../../dist/swarm/memory');
 const { ConfigurationManager } = require('../../dist/core/config');
 const { SimpleCache } = require('../../dist/memory/cache');

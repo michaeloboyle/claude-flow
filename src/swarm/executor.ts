@@ -13,6 +13,8 @@ import {
   TaskDefinition, AgentState, TaskResult, SwarmEvent, EventType,
   SWARM_CONSTANTS
 } from './types.js';
+import process from "node:process";
+import { Buffer } from "node:buffer";
 
 export interface ExecutionContext {
   task: TaskDefinition;

@@ -11,6 +11,7 @@
  * - Comprehensive documentation
  */
 
+import process from "node:process";
 class TaskManager {
     constructor() {
         this.tasks = [];

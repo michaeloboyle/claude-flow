@@ -7,6 +7,7 @@
 
 import WebSocket from 'ws';
 import { spawn } from 'child_process';
+import process from "node:process";
 
 async function testPerformance() {
     console.log('⚡ Testing Performance and Resource Usage...\n');

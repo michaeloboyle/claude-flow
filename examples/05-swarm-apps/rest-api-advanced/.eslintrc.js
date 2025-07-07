@@ -1,3 +1,4 @@
+import process from "node:process";
 module.exports = {
   env: {
     browser: false,

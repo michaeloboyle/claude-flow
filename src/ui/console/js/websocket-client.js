@@ -345,7 +345,7 @@ export class WebSocketClient {
     });
     
     // Handle page unload
-    window.addEventListener('beforeunload', () => {
+    globalThis.addEventListener('beforeunload', () => {
       if (this.isConnected) {
         this.disconnect();
       }

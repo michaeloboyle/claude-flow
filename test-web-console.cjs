@@ -5,6 +5,7 @@
  */
 
 const express = require('express');
+const process = require('node:process');
 const { WebSocketServer } = require('ws');
 const { createServer } = require('http');
 const path = require('path');
@@ -18,12 +19,12 @@ const consoleDir = path.join(__dirname, 'src/ui/console');
 app.use('/console', express.static(consoleDir));
 
 // Redirect root to console
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.redirect('/console');
 });
 
 // Health endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

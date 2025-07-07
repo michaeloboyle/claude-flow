@@ -9,6 +9,7 @@ import * as zlib from 'zlib';
 import { promisify } from 'util';
 import * as crypto from 'crypto';
 import { MemoryItem, MemorySnapshot, ImportExportOptions } from '../types';
+import { Buffer } from "node:buffer";
 
 const gzip = promisify(zlib.gzip);
 const gunzip = promisify(zlib.gunzip);

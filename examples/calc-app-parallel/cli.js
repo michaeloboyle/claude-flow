@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import process from "node:process";
 const Calculator = require('./calculator');
 const readline = require('readline');
 

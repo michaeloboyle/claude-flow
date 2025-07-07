@@ -12,10 +12,10 @@
 export class TestCleanup {
   private timers = new Set<NodeJS.Timeout>();
   private intervals = new Set<NodeJS.Timeout>();
-  private promises = new Set<Promise<any>>();
+  private promises = new Set<Promise<unknown>>();
   private abortControllers = new Set<AbortController>();
   private eventListeners = new Map<EventTarget, Array<{ event: string; listener: EventListener }>>();
-  private openHandles = new Set<any>();
+  private openHandles = new Set<unknown>();
 
   /**
    * Register a timer for cleanup
@@ -67,7 +67,7 @@ export class TestCleanup {
   /**
    * Register any handle that needs cleanup
    */
-  registerHandle(handle: any): any {
+  registerHandle(handle: unknown): unknown {
     this.openHandles.add(handle);
     return handle;
   }
@@ -95,7 +95,7 @@ export class TestCleanup {
    * Create a promise with timeout and automatic cleanup
    */
   createTimeoutPromise<T>(
-    executor: (resolve: (value: T) => void, reject: (reason?: any) => void) => void,
+    executor: (resolve: (value: T) => void, reject: (reason?: Error) => void) => void,
     timeoutMs: number,
     timeoutMessage?: string
   ): Promise<T> {
@@ -139,6 +139,7 @@ export class TestCleanup {
         timeoutPromise
       ]);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.warn(`Warning: ${this.promises.size} promises did not settle within ${timeoutMs}ms`);
     }
   }
@@ -197,12 +198,12 @@ export class TestCleanup {
       // Clean up open handles
       for (const handle of this.openHandles) {
         try {
-          if (handle && typeof handle.close === 'function') {
-            handle.close();
-          } else if (handle && typeof handle.destroy === 'function') {
-            handle.destroy();
-          } else if (handle && typeof handle.end === 'function') {
-            handle.end();
+          if (handle && typeof (handle as Record<string, unknown>).close === 'function') {
+            (handle as { close: () => void }).close();
+          } else if (handle && typeof (handle as Record<string, unknown>).destroy === 'function') {
+            (handle as { destroy: () => void }).destroy();
+          } else if (handle && typeof (handle as Record<string, unknown>).end === 'function') {
+            (handle as { end: () => void }).end();
           }
         } catch (error) {
           errors.push(error as Error);
@@ -215,12 +216,13 @@ export class TestCleanup {
 
     } finally {
       // Force garbage collection if available
-      if (global.gc) {
-        global.gc();
+      if ((globalThis as { gc?: () => void }).gc) {
+        (globalThis as { gc: () => void }).gc();
       }
 
       // Report any cleanup errors
       if (errors.length > 0) {
+        // eslint-disable-next-line no-console
         console.warn(`TestCleanup encountered ${errors.length} errors during cleanup:`, errors);
       }
     }
@@ -279,7 +281,7 @@ export class AsyncTestUtils {
     const start = Date.now();
 
     return new Promise<void>((resolve, reject) => {
-      const checkCondition = async () => {
+      const checkCondition = async (): Promise<void> => {
         try {
           if (Date.now() - start >= timeout) {
             reject(new Error(`${message} (timeout: ${timeout}ms)`));
@@ -298,7 +300,7 @@ export class AsyncTestUtils {
         }
       };
 
-      checkCondition();
+      void checkCondition();
     });
   }
 

@@ -212,7 +212,7 @@ class ClaudeCodeConsole {
     }
     
     // Handle window focus
-    window.addEventListener('focus', () => {
+    globalThis.addEventListener('focus', () => {
       this.terminal.focus();
     });
     
@@ -224,7 +224,7 @@ class ClaudeCodeConsole {
     });
     
     // Handle page unload
-    window.addEventListener('beforeunload', () => {
+    globalThis.addEventListener('beforeunload', () => {
       this.cleanup();
     });
   }
@@ -592,7 +592,7 @@ class ClaudeCodeConsole {
    */
   setupEventListeners() {
     // Handle unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
+    globalThis.addEventListener('unhandledrejection', (event) => {
       console.error('Unhandled promise rejection:', event.reason);
       if (this.terminal) {
         this.terminal.writeError(`Unhandled error: ${event.reason.message || event.reason}`);
@@ -600,7 +600,7 @@ class ClaudeCodeConsole {
     });
     
     // Handle errors
-    window.addEventListener('error', (event) => {
+    globalThis.addEventListener('error', (event) => {
       console.error('Global error:', event.error);
       if (this.terminal) {
         this.terminal.writeError(`Application error: ${event.error.message || event.error}`);
@@ -647,7 +647,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const console = new ClaudeCodeConsole();
   
   // Make console globally available for debugging
-  window.claudeConsole = console;
+  globalThis.claudeConsole = console;
   
   // Initialize the application
   await console.init();

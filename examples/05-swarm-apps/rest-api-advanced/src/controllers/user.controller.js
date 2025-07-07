@@ -1,3 +1,4 @@
+import process from "node:process";
 const User = require('../models/User');
 const Token = require('../models/token.model');
 const authService = require('../services/auth.service');

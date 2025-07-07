@@ -8,6 +8,8 @@ import { ITerminalAdapter, Terminal } from './base.js';
 import { ILogger } from '../../core/logger.js';
 import { TerminalError, TerminalCommandError } from '../../utils/errors.js';
 import { generateId, delay, timeout, createDeferred } from '../../utils/helpers.js';
+import process from "node:process";
+import { Buffer } from "node:buffer";
 
 /**
  * Platform-specific shell configuration

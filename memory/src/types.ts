@@ -6,7 +6,7 @@ export interface MemoryItem {
   id: string;
   category: string;
   key: string;
-  value: any;
+  value: unknown;
   metadata?: MemoryMetadata;
   vectorEmbedding?: number[];
   ttl?: number;
@@ -22,7 +22,7 @@ export interface MemoryMetadata {
   confidence?: number;
   mergedFrom?: string[];
   mergedAt?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface MemoryQuery {
@@ -72,7 +72,7 @@ export interface CacheConfig {
   maxSize: number;
   ttl: number;
   strategy: 'lru' | 'lfu' | 'fifo';
-  onEvict?: (key: string, value: any) => void;
+  onEvict?: (key: string, value: unknown) => void;
 }
 
 export interface ReplicationConfig {
@@ -96,7 +96,7 @@ export interface MemoryNamespace {
   name: string;
   description?: string;
   permissions?: NamespacePermissions;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface NamespacePermissions {
@@ -134,13 +134,13 @@ export interface MemorySnapshot {
   timestamp: number;
   nodeId: string;
   items: MemoryItem[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface MemoryEvent {
   type: 'stored' | 'updated' | 'deleted' | 'imported' | 'exported' | 'replicated';
   timestamp: number;
-  data: any;
+  data: unknown;
 }
 
 export interface TimeTravelQuery {

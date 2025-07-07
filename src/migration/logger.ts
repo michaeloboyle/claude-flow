@@ -5,6 +5,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as chalk from 'chalk';
+import process from "node:process";
 
 export interface LogEntry {
   timestamp: Date;

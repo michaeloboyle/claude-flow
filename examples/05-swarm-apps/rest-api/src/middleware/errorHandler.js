@@ -1,4 +1,5 @@
 // Global error handling middleware
+import process from "node:process";
 const errorHandler = (err, req, res, next) => {
   // Log error for debugging
   console.error('Error:', {

@@ -5,6 +5,7 @@
 
 import { TestCleanup } from './test-cleanup.js';
 import { PerformanceTestUtils } from './performance-test-utils.js';
+import process from "node:process";
 
 /**
  * Test context shared across setup/teardown
@@ -301,8 +302,8 @@ export class TestHooks {
     
     try {
       // Force garbage collection
-      if (global.gc) {
-        global.gc();
+      if (globalThis.gc) {
+        globalThis.gc();
       }
       
       const startMemory = process.memoryUsage().heapUsed;
@@ -313,14 +314,14 @@ export class TestHooks {
         result = await testFn(context);
         
         // Periodic garbage collection
-        if (i % 10 === 0 && global.gc) {
-          global.gc();
+        if (i % 10 === 0 && globalThis.gc) {
+          globalThis.gc();
         }
       }
       
       // Final garbage collection
-      if (global.gc) {
-        global.gc();
+      if (globalThis.gc) {
+        globalThis.gc();
       }
       
       const endMemory = process.memoryUsage().heapUsed;

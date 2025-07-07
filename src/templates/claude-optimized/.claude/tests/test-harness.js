@@ -1,3 +1,4 @@
+import process from "node:process";
 const fs = require('fs').promises;
 const path = require('path');
 const { performance } = require('perf_hooks');

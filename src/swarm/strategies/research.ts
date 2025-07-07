@@ -11,6 +11,7 @@ import {
   SwarmObjective, TaskDefinition, TaskId, TaskType, TaskPriority,
   SwarmConfig, SWARM_CONSTANTS
 } from '../types.js';
+import { Buffer } from "node:buffer";
 
 // Research-specific interfaces
 interface ResearchQuery {

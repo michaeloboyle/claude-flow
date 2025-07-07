@@ -5,6 +5,7 @@
 
 import chalk from 'chalk';
 import { createCompatibleUI } from './compatible-ui.ts';
+import process from "node:process";
 
 export interface FallbackOptions {
   enableUI?: boolean;

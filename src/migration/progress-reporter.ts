@@ -4,6 +4,7 @@
 
 import * as chalk from 'chalk';
 import { MigrationProgress } from './types';
+import process from "node:process";
 
 export class ProgressReporter {
   private progress: MigrationProgress;

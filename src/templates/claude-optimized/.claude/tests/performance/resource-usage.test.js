@@ -1,3 +1,4 @@
+import process from "node:process";
 const { TestHarness } = require('../test-harness');
 const assert = require('assert');
 const os = require('os');
@@ -11,7 +12,7 @@ describe('Resource Usage Tests', () => {
 
   afterEach(() => {
     harness.reset();
-    if (global.gc) global.gc(); // Force garbage collection if available
+    if (globalThis.gc) globalThis.gc(); // Force garbage collection if available
   });
 
   describe('Memory Usage Patterns', () => {
@@ -271,7 +272,7 @@ describe('Resource Usage Tests', () => {
         });
         
         // Simulate cleanup between batches
-        if (global.gc) global.gc();
+        if (globalThis.gc) globalThis.gc();
       }
       
       console.log('\nBatch | Files | Memory Used | Within Limit');

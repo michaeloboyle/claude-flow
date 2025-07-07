@@ -1,5 +1,6 @@
 // Standardized response helpers
 
+import process from "node:process";
 const sendSuccess = (res, data, message = 'Success', statusCode = 200) => {
   res.status(statusCode).json({
     success: true,

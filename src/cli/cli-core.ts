@@ -6,6 +6,7 @@
 import chalk from "chalk";
 import fs from "fs-extra";
 import path from "path";
+import process from "node:process";
 
 export const VERSION = "1.0.43";
 
