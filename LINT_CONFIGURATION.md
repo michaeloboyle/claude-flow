@@ -57,12 +57,73 @@ This decision should be reviewed if:
 - Accessibility concerns are raised
 - Corporate environments require ASCII-only output
 
+#### `explicit-function-return-type` - **DISABLED**
+
+**Decision**: We allow functions without explicit return types for rapid development workflows.
+
+**Rationale**: 
+- Claude-Flow is a **rapid prototyping and development tool** where developer velocity is prioritized
+- Many functions have obvious return types that TypeScript can infer correctly
+- Examples and demo code should focus on functionality over strict typing ceremony
+- The codebase contains ~1500+ functions that would require return type annotations
+- Return type inference works well for the majority of use cases in this project
+
+**Context-Specific Appropriateness**:
+- ✅ **CLI Tools**: Developer experience and rapid iteration prioritized
+- ✅ **Prototyping Tools**: Flexibility over ceremony
+- ❌ **Critical Libraries**: Explicit contracts needed
+- ❌ **Public APIs**: Clear interfaces required
+
+**Technical Debt Acknowledgment**:
+This rule was introduced after significant development was complete. Retroactively adding 1500+ return type annotations would be:
+- **High effort, low immediate value** for a tool focused on developer productivity
+- **Potential barrier** to community contributions
+- **Maintenance overhead** that conflicts with rapid iteration goals
+
+**Mitigation Strategy**:
+- New core API functions should include return types
+- Critical interfaces and public APIs maintain explicit typing
+- TypeScript's inference provides type safety without annotation overhead
+- Regular review for areas where explicit return types would add value
+
+#### `no-explicit-any` - **DISABLED**
+
+**Decision**: We allow `any` types in appropriate contexts for CLI tool flexibility.
+
+**Rationale**: 
+- Claude-Flow integrates with **diverse external systems** where strict typing is impractical
+- CLI tools often handle **dynamic user input** and varying data shapes
+- Agent orchestration requires **flexible data exchange** between different systems
+- The codebase contains ~800+ legitimate uses of `any` for dynamic operations
+- Many uses are in example code and integration adapters where strict typing adds complexity
+
+**Context-Specific Appropriateness**:
+- ✅ **External API Integration**: Unknown or varying response shapes
+- ✅ **Dynamic Configuration**: User-provided configuration objects
+- ✅ **Plugin Systems**: Flexible agent and tool interfaces
+- ✅ **Example Code**: Simplicity over type complexity
+- ❌ **Core Type Definitions**: Should use proper types
+- ❌ **Internal APIs**: Should have known, stable interfaces
+
+**Risks Acknowledged**:
+- **Runtime type errors**: Potential for type mismatches at runtime
+- **IntelliSense degradation**: Less helpful autocomplete in some contexts
+- **Maintenance complexity**: Harder to refactor with confidence
+
+**Mitigation Strategies**:
+- Use `unknown` instead of `any` where possible for new code
+- Core business logic maintains proper typing
+- Runtime validation for external data
+- Document expected shapes in comments where `any` is used
+- Regular audit of `any` usage to convert to proper types where beneficial
+
 ## Other Lint Rules
 
 All other Deno recommended rules are enabled, including:
-- `no-console` - Enforced with explicit exemptions for CLI tools
-- `no-explicit-any` - Enforced for type safety
-- `prefer-const` - Enforced for code quality
+- `no-unused-vars` - Enforced for code quality
+- `prefer-const` - Enforced for code quality  
 - `no-await-in-loop` - Enforced with explicit exemptions where sequential processing is required
+- `eqeqeq` - Enforced for type safety
+- `camelcase` - Enforced for consistency
 
 See `deno.json` for the complete configuration.

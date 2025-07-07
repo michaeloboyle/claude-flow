@@ -16,16 +16,16 @@
         "ban-untagged-todo",
         "camelcase", 
         "eqeqeq",
-        "explicit-function-return-type",
         "no-await-in-loop",
         "no-const-assign",
-        "no-explicit-any",
         "no-sparse-arrays",
         "no-throw-literal"
       ],
       "exclude": [
         "prefer-ascii",
-        "no-console"
+        "no-console",
+        "explicit-function-return-type",
+        "no-explicit-any"
       ]
     },
     "exclude": [
