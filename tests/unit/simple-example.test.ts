@@ -1,4 +1,4 @@
-import { describe, it, beforeEach, expect } from "@jest/globals";
+import { describe, it, beforeEach, expect } from '@jest/globals';
 
 // Simple utility functions to test
 function greet(name: string): string {
