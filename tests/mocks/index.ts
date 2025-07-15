@@ -2,7 +2,8 @@
  * Comprehensive mock implementations for testing
  */
 
-import { jest } from '@jest/globals';
+// Note: TypeScript types still work with require in ts-jest CommonJS mode
+// jest is globally available in Jest environment
 import type { MockedFunction } from 'jest-mock';
 import type { AgentProfile, Task } from "../../src/utils/types.ts";
 

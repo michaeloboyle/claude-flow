@@ -1,8 +1,8 @@
-import { assertEquals, assertExists, assertStringIncludes, describe, it, beforeEach, afterEach, expect } from "../../../../utils/test-utils.ts";
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
-import { initCommand } from "../../../../../src/cli/simple-commands/init/index.js";
+const { assertEquals, assertExists, assertStringIncludes, describe, it, beforeEach, afterEach, expect } = require("../../../../utils/test-utils.ts");
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+const { initCommand } = require("../../../../../src/cli/simple-commands/init/index.js");
 
 describe("Init Command Unit Tests", () => {
   let testDir: string;

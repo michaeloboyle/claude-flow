@@ -2,7 +2,7 @@
  * Comprehensive test utilities for Claude-Flow
  */
 
-import { describe, it, beforeEach, afterEach, expect, jest } from '@jest/globals';
+const { describe, it, beforeEach, afterEach, expect } = require('@jest/globals');
 
 // Jest assertion functions mapped to Deno-style names for compatibility
 export const assertEquals = (actual: any, expected: any) => expect(actual).toBe(expected);
@@ -14,10 +14,26 @@ export const exists = (path: string): boolean => {
   const fs = require('fs');
   return fs.existsSync(path);
 };
-export const assertRejects = async (fn: () => Promise<any>) => expect(fn()).rejects.toThrow();
-export const assertThrows = (fn: () => any) => expect(fn).toThrow();
+export const assertRejects = async (fn: () => Promise<any>, ErrorType?: any, message?: string) => {
+  if (ErrorType && message) {
+    return expect(fn()).rejects.toThrow(message);
+  } else if (ErrorType) {
+    return expect(fn()).rejects.toThrow(ErrorType);
+  } else {
+    return expect(fn()).rejects.toThrow();
+  }
+};
+export const assertThrows = (fn: () => any, ErrorType?: any, message?: string) => {
+  if (ErrorType && message) {
+    return expect(fn).toThrow(message);
+  } else if (ErrorType) {
+    return expect(fn).toThrow(ErrorType);
+  } else {
+    return expect(fn).toThrow();
+  }
+};
 
-// Mock and timing utilities
+// Mock and timing utilities - jest is global in Jest environment
 export const stub = jest.fn;
 export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -36,8 +52,9 @@ export class FakeTime {
   }
 }
 
-// Re-export Jest testing functions
-export { describe, it, beforeEach, afterEach, expect, jest };
+// Re-export Jest testing functions (jest is global)
+export { describe, it, beforeEach, afterEach, expect };
+export { jest }; // jest is globally available
 export type Spy = jest.MockedFunction<any>;
 
 /**

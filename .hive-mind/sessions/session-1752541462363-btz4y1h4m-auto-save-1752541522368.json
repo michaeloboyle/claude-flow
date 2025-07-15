@@ -1,0 +1,81 @@
+{
+  "sessionId": "session-1752541462363-btz4y1h4m",
+  "checkpointId": "checkpoint-1752541522368-14msnh0zp",
+  "checkpointName": "auto-save-1752541522368",
+  "timestamp": "2025-07-15T01:05:22.369Z",
+  "data": {
+    "timestamp": "2025-07-15T01:05:22.368Z",
+    "changeCount": 5,
+    "changesByType": {
+      "swarm_created": [
+        {
+          "type": "swarm_created",
+          "data": {
+            "swarmId": "swarm-1752541462357-dd1wlbm5z",
+            "swarmName": "DataBot",
+            "objective": "researcher",
+            "workerCount": 8
+          },
+          "timestamp": "2025-07-15T01:04:22.366Z"
+        }
+      ],
+      "agent_activity": [
+        {
+          "type": "agent_activity",
+          "data": {
+            "agentId": "worker-swarm-1752541462357-dd1wlbm5z-0",
+            "activity": "spawned",
+            "data": {
+              "type": "researcher",
+              "name": "Researcher Worker 1"
+            }
+          },
+          "timestamp": "2025-07-15T01:04:22.370Z"
+        },
+        {
+          "type": "agent_activity",
+          "data": {
+            "agentId": "worker-swarm-1752541462357-dd1wlbm5z-1",
+            "activity": "spawned",
+            "data": {
+              "type": "coder",
+              "name": "Coder Worker 2"
+            }
+          },
+          "timestamp": "2025-07-15T01:04:22.370Z"
+        },
+        {
+          "type": "agent_activity",
+          "data": {
+            "agentId": "worker-swarm-1752541462357-dd1wlbm5z-2",
+            "activity": "spawned",
+            "data": {
+              "type": "analyst",
+              "name": "Analyst Worker 3"
+            }
+          },
+          "timestamp": "2025-07-15T01:04:22.370Z"
+        },
+        {
+          "type": "agent_activity",
+          "data": {
+            "agentId": "worker-swarm-1752541462357-dd1wlbm5z-3",
+            "activity": "spawned",
+            "data": {
+              "type": "tester",
+              "name": "Tester Worker 4"
+            }
+          },
+          "timestamp": "2025-07-15T01:04:22.371Z"
+        }
+      ]
+    },
+    "statistics": {
+      "tasksProcessed": 0,
+      "tasksCompleted": 0,
+      "memoryUpdates": 0,
+      "agentActivities": 4,
+      "consensusDecisions": 0
+    }
+  }
+}
