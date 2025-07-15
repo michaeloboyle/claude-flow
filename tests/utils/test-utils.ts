@@ -2,13 +2,36 @@
  * Comprehensive test utilities for Claude-Flow
  */
 
-import { assertEquals, assertExists, assertRejects, assertThrows } from "https://deno.land/std@0.220.0/assert/mod.ts";
-import { delay } from "https://deno.land/std@0.220.0/async/delay.ts";
-import { stub, Spy } from "https://deno.land/std@0.220.0/testing/mock.ts";
-import { FakeTime } from "https://deno.land/std@0.220.0/testing/time.ts";
+import { describe, it, beforeEach, afterEach, expect, jest } from '@jest/globals';
 
-export { assertEquals, assertExists, assertRejects, assertThrows, stub, delay, FakeTime };
-export type { Spy };
+// Jest assertion functions mapped to Deno-style names for compatibility
+export const assertEquals = (actual: any, expected: any) => expect(actual).toBe(expected);
+export const assertExists = (value: any) => expect(value).toBeDefined();
+export const assertRejects = async (fn: () => Promise<any>) => expect(fn()).rejects.toThrow();
+export const assertThrows = (fn: () => any) => expect(fn).toThrow();
+
+// Mock and timing utilities
+export const stub = jest.fn;
+export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Jest doesn't have FakeTime, use fake timers
+export class FakeTime {
+  constructor() {
+    jest.useFakeTimers();
+  }
+  
+  tick(ms: number) {
+    jest.advanceTimersByTime(ms);
+  }
+  
+  restore() {
+    jest.useRealTimers();
+  }
+}
+
+// Re-export Jest testing functions
+export { describe, it, beforeEach, afterEach, expect, jest };
+export type Spy = jest.MockedFunction<any>;
 
 /**
  * Test utilities for async operations
