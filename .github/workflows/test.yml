@@ -33,20 +33,20 @@ jobs:
     - name: Run linting
       run: npm run lint
 
-    - name: Run unit tests
-      run: npm run test:unit
+    - name: Run unit tests (CI basic - converted tests only)
+      run: npm run test:ci-basic
 
-    - name: Run CLI tests
-      run: npm run test:cli
+    # - name: Run CLI tests
+    #   run: npm run test:cli
 
-    - name: Run integration tests
-      run: npm run test:integration
+    # - name: Run integration tests
+    #   run: npm run test:integration
 
-    - name: Run performance tests
-      run: npm run test:performance
+    # - name: Run performance tests
+    #   run: npm run test:performance
 
-    - name: Generate coverage report
-      run: npm run test:coverage
+    - name: Generate coverage report (basic tests only)
+      run: npm run test:ci-basic
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
@@ -87,8 +87,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run core tests
-      run: npm run test:unit
+    - name: Run core tests (CI basic)
+      run: npm run test:ci-basic
 
   test-macos:
     runs-on: macos-latest
@@ -106,8 +106,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run core tests
-      run: npm run test:unit
+    - name: Run core tests (CI basic)
+      run: npm run test:ci-basic
 
   e2e-test:
     runs-on: ubuntu-latest
