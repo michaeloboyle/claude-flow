@@ -11,13 +11,33 @@ import {
   assertExists,
   assertThrows,
   assertRejects,
-} from '../../test.utils.ts';
+  expect,
+} from '../../utils/test-utils.ts';
 import { ConfigManager, loadConfig } from '../../../src/core/config.ts';
 import fs from 'fs';
 import { Config } from '../../../src/utils/types.ts';
 import { ConfigError, ValidationError } from '../../../src/utils/errors.ts';
-import { createTestFile } from '../../test.utils.ts';
-import { cleanupTestEnv, setupTestEnv } from '../../test.config.ts';
+// import { createTestFile } from '../../test.utils.ts';
+// import { cleanupTestEnv, setupTestEnv } from '../../test.config.ts';
+
+// Temporary test helpers until we find the correct imports
+import path from 'path';
+import os from 'os';
+
+const createTestFile = async (filename: string, content: string): Promise<string> => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'claude-flow-test-'));
+  const filePath = path.join(tempDir, filename);
+  fs.writeFileSync(filePath, content);
+  return filePath;
+};
+
+const setupTestEnv = () => {
+  // Mock setup
+};
+
+const cleanupTestEnv = async () => {
+  // Mock cleanup
+};
 
 describe('ConfigManager', () => {
   let configManager: ConfigManager;
@@ -52,7 +72,7 @@ describe('ConfigManager', () => {
       if (value) {
         process.env[key] = value;
       } else {
-        delete process.env(key);
+        delete process.env[key];
       }
     });
     

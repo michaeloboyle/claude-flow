@@ -7,6 +7,13 @@ import { describe, it, beforeEach, afterEach, expect, jest } from '@jest/globals
 // Jest assertion functions mapped to Deno-style names for compatibility
 export const assertEquals = (actual: any, expected: any) => expect(actual).toBe(expected);
 export const assertExists = (value: any) => expect(value).toBeDefined();
+export const assertStringIncludes = (str: string, substring: string) => expect(str).toContain(substring);
+
+// Helper function for file existence checks in tests
+export const exists = (path: string): boolean => {
+  const fs = require('fs');
+  return fs.existsSync(path);
+};
 export const assertRejects = async (fn: () => Promise<any>) => expect(fn()).rejects.toThrow();
 export const assertThrows = (fn: () => any) => expect(fn).toThrow();
 
@@ -167,7 +174,7 @@ export class MemoryTestUtils {
     // Start memory monitoring
     const monitoringPromise = (async () => {
       while (monitoring && sampleCount < maxSamples) {
-        const memInfo = Deno.memoryUsage();
+        const memInfo = process.memoryUsage();
         memoryStats.push({
           timestamp: Date.now(),
           heapUsed: memInfo.heapUsed,
@@ -194,9 +201,9 @@ export class MemoryTestUtils {
    * Trigger garbage collection (if available)
    */
   static async forceGC(): Promise<void> {
-    // Deno doesn't expose GC directly, but we can try to encourage it
-    if ('gc' in globalThis) {
-      (globalThis as any).gc();
+    // Node.js may expose GC in certain conditions
+    if (global && 'gc' in global) {
+      (global as any).gc();
     }
     await delay(10); // Give time for GC to run
   }
@@ -230,7 +237,7 @@ export class MemoryTestUtils {
   private static getAverageMemoryUsage(samples: number): number {
     let total = 0;
     for (let i = 0; i < samples; i++) {
-      total += Deno.memoryUsage().heapUsed;
+      total += process.memoryUsage().heapUsed;
     }
     return total / samples;
   }
@@ -431,7 +438,10 @@ export class FileSystemTestUtils {
    * Create temporary directory for testing
    */
   static async createTempDir(prefix = 'claude-flow-test-'): Promise<string> {
-    const tempDir = await Deno.makeTempDir({ prefix });
+    const fs = require('fs');
+    const path = require('path');
+    const os = require('os');
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
     return tempDir;
   }
 
@@ -443,8 +453,11 @@ export class FileSystemTestUtils {
     options: { suffix?: string; dir?: string } = {}
   ): Promise<string> {
     const { suffix = '.tmp', dir } = options;
-    const tempFile = await Deno.makeTempFile({ suffix, dir });
-    await Deno.writeTextFile(tempFile, content);
+    const fs = require('fs');
+    const path = require('path');
+    const os = require('os');
+    const tempFile = fs.mkdtempSync(path.join(dir || os.tmpdir(), 'file-')) + suffix;
+    fs.writeFileSync(tempFile, content);
     return tempFile;
   }
 
@@ -462,12 +475,14 @@ export class FileSystemTestUtils {
       const dirPath = filePath.substring(0, filePath.lastIndexOf('/'));
       
       try {
-        await Deno.mkdir(dirPath, { recursive: true });
+        const fs = require('fs');
+        fs.mkdirSync(dirPath, { recursive: true });
       } catch {
         // Directory already exists
       }
       
-      await Deno.writeTextFile(filePath, content);
+      const fs = require('fs');
+      fs.writeFileSync(filePath, content);
     }
 
     return fixtureDir;
@@ -480,7 +495,8 @@ export class FileSystemTestUtils {
     await Promise.all(
       paths.map(async path => {
         try {
-          await Deno.remove(path, { recursive: true });
+          const fs = require('fs');
+          fs.rmSync(path, { recursive: true, force: true });
         } catch {
           // Ignore if already removed
         }
