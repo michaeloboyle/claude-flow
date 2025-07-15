@@ -3,10 +3,7 @@
  * Tests all CLI commands with mock interactions and argument validation
  */
 
-import { describe, it, beforeEach, afterEach  } from "../test.utils.ts";
-import { assertEquals, assertExists, assertRejects, assertStringIncludes  } from "../test.utils.ts";
-// FakeTime equivalent available in test.utils.ts
-import { spy, stub  } from "../test.utils.ts";
+import { describe, it, beforeEach, afterEach, assertEquals, assertExists, assertRejects, assertStringIncludes, spy, stub } from "../../utils/test-utils.ts";
 
 import { 
   AsyncTestUtils, 
