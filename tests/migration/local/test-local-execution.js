@@ -5,10 +5,13 @@
  * Tests all functionality works with pure Node.js/npm (no Deno)
  */
 
-const { execSync, spawn } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+import { execSync, spawn } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Test configuration
 const TEST_DIR = path.join(os.tmpdir(), 'claude-flow-local-test-' + Date.now());
