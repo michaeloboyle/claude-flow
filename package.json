@@ -31,6 +31,7 @@
     "test:coverage:integration": "NODE_OPTIONS='--experimental-vm-modules' jest tests/integration --coverage",
     "test:coverage:e2e": "NODE_OPTIONS='--experimental-vm-modules' jest tests/e2e --coverage",
     "test:ci": "NODE_OPTIONS='--experimental-vm-modules' jest --ci --coverage --maxWorkers=2",
+    "test:ci-basic": "node scripts/test-ci-basic.cjs",
     "test:debug": "NODE_OPTIONS='--experimental-vm-modules --inspect-brk' jest --runInBand --no-cache",
     "test:comprehensive": "node scripts/test-comprehensive.js",
     "test:comprehensive:verbose": "node scripts/test-comprehensive.js --verbose",
