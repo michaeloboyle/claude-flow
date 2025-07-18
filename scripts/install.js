@@ -21,6 +21,58 @@ function checkDeno() {
   });
 }
 
+// Check if better-sqlite3 bindings are working
+function checkSqliteBindings() {
+  return new Promise((resolve) => {
+    try {
+      // Try to import and use better-sqlite3
+      import('better-sqlite3').then((Database) => {
+        try {
+          const db = new Database.default(':memory:');
+          db.close();
+          resolve(true);
+        } catch (error) {
+          console.log('SQLite bindings test failed:', error.message);
+          resolve(false);
+        }
+      }).catch((error) => {
+        console.log('SQLite module import failed:', error.message);
+        resolve(false);
+      });
+    } catch (error) {
+      console.log('SQLite check failed:', error.message);
+      resolve(false);
+    }
+  });
+}
+
+// Rebuild better-sqlite3 for ARM64
+function rebuildSqlite() {
+  return new Promise((resolve, reject) => {
+    console.log('Detected ARM64 architecture, attempting to rebuild better-sqlite3...');
+    
+    const npmRebuild = spawn('npm', ['rebuild', 'better-sqlite3'], { 
+      stdio: 'inherit',
+      shell: true
+    });
+    
+    npmRebuild.on('close', (code) => {
+      if (code === 0) {
+        console.log('✅ Successfully rebuilt better-sqlite3 for ARM64');
+        resolve();
+      } else {
+        console.log('⚠️  Failed to rebuild better-sqlite3, will use in-memory fallback');
+        resolve(); // Don't reject, just continue with fallback
+      }
+    });
+    
+    npmRebuild.on('error', (error) => {
+      console.log('⚠️  Could not rebuild better-sqlite3:', error.message);
+      resolve(); // Don't reject, just continue with fallback
+    });
+  });
+}
+
 // Install Deno if not available
 async function installDeno() {
   console.log('Deno not found. Installing Deno...');
@@ -57,6 +109,36 @@ async function main() {
     
     if (!denoAvailable) {
       await installDeno();
+    }
+    
+    // Check for ARM64 macOS and better-sqlite3 compatibility
+    const platform = os.platform();
+    const arch = os.arch();
+    const isARM64MacOS = platform === 'darwin' && arch === 'arm64';
+    
+    if (isARM64MacOS) {
+      console.log('📱 Detected Apple Silicon (ARM64) macOS');
+      
+      // Check if better-sqlite3 bindings are working
+      const sqliteWorking = await checkSqliteBindings();
+      
+      if (!sqliteWorking) {
+        console.log('⚠️  better-sqlite3 bindings not working, attempting to rebuild...');
+        await rebuildSqlite();
+        
+        // Test again after rebuild
+        const sqliteWorkingAfterRebuild = await checkSqliteBindings();
+        
+        if (sqliteWorkingAfterRebuild) {
+          console.log('✅ better-sqlite3 is now working correctly!');
+        } else {
+          console.log('ℹ️  better-sqlite3 rebuild did not resolve the issue');
+          console.log('ℹ️  Claude-Flow will use in-memory storage (no persistence across sessions)');
+          console.log('ℹ️  For persistent storage, try: npm install -g claude-flow@alpha');
+        }
+      } else {
+        console.log('✅ better-sqlite3 bindings are working correctly');
+      }
     }
     
     console.log('Claude-Flow installation completed!');
