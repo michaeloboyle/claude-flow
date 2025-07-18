@@ -11,7 +11,6 @@ export const assertStringIncludes = (str: string, substring: string) => expect(s
 
 // Helper function for file existence checks in tests
 export const exists = (path: string): boolean => {
-  const fs = require('fs');
   return fs.existsSync(path);
 };
 export const assertRejects = async (fn: () => Promise<any>, ErrorType?: any, message?: string) => {
