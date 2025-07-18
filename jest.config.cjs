@@ -12,7 +12,7 @@ module.exports = {
   ],
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', { 
-      useESM: false,
+      useESM: true,
       isolatedModules: true,
       tsconfig: {
         allowJs: true,
