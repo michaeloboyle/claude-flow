@@ -2,7 +2,7 @@
  * Unit tests for Config Manager
  */
 
-const {
+import {
   describe,
   it,
   beforeEach,
