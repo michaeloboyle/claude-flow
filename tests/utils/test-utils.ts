@@ -2,7 +2,7 @@
  * Comprehensive test utilities for Claude-Flow
  */
 
-const { describe, it, beforeEach, afterEach, expect } = require('@jest/globals');
+import { describe, it, beforeEach, afterEach, expect } from '@jest/globals';
 
 // Jest assertion functions mapped to Deno-style names for compatibility
 export const assertEquals = (actual: any, expected: any) => expect(actual).toBe(expected);
