@@ -128,7 +128,7 @@ async function main() {
         } else {
           console.log('ℹ️  better-sqlite3 rebuild did not resolve the issue');
           console.log('ℹ️  Claude-Flow will use in-memory storage (no persistence across sessions)');
-          console.log('ℹ️  For persistent storage, try: npm install -g claude-flow');
+          console.log('ℹ️  For persistent storage, try: npm install -g claude-flow@alpha');
         }
       } else {
         console.log('✅ better-sqlite3 bindings are working correctly');
