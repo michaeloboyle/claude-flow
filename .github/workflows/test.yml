@@ -234,7 +234,11 @@ jobs:
 
     - name: Check for known vulnerabilities
       run: |
-        npx audit-ci --config audit-ci.json || true
+        npm audit --production
+        if [ $? -ne 0 ]; then
+          echo "Security vulnerabilities found!"
+          exit 1
+        fi
 
   code-quality:
     runs-on: ubuntu-latest

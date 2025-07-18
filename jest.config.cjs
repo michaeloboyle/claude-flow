@@ -58,12 +58,6 @@ module.exports = {
   coverageReporters: ['text', 'lcov', 'html'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testTimeout: 30000,
-  globals: {
-    'ts-jest': {
-      useESM: false,
-      isolatedModules: true
-    }
-  },
   maxWorkers: process.env.CI ? 2 : '50%',
   verbose: !!process.env.CI,
   bail: !!process.env.CI,
