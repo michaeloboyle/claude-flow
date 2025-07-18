@@ -33,7 +33,7 @@ export const assertThrows = (fn: () => any, ErrorType?: any, message?: string) =
 };
 
 // Mock and timing utilities - jest is global in Jest environment
-export const stub = jest.fn;
+export const stub = () => jest.fn();
 export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Jest doesn't have FakeTime, use fake timers
