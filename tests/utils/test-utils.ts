@@ -53,7 +53,7 @@ export class FakeTime {
 
 // Re-export Jest testing functions (jest is global)
 export { describe, it, beforeEach, afterEach, expect };
-export { jest }; // jest is globally available
+// Removed redundant export of jest
 export type Spy = jest.MockedFunction<any>;
 
 /**
